@@ -1,0 +1,7 @@
+{% extends "main.html" %} {% block content %} {% if request.user.is_authenticated %}
+<h1>Welcome <span style="text-transform: uppercase">{{user}}</span></h1>
+<h2><a href="{% url 'tasks' %}">Show Tasks</a></h2>
+{% else %}
+<h1>Welcome To Task Manager App</h1>
+<h2><a href="{% url 'login' %}">Login</a> ---- <a href="{% url 'register' %}">Register</a></h2>
+{% endif %} {% endblock content %}

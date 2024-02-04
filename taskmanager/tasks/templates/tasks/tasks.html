@@ -1,0 +1,7 @@
+{% extends "main.html" %} {% block content %}
+<h1>Tasks</h1>
+{% for task in tasks %}
+<h3>User: {{task.user}} -- title: <a href="">{{task.title}}</a></h3>
+{% endfor %}
+<h3><a href="{% url 'logout' %}">logout</a></h3>
+{% endblock content %}
