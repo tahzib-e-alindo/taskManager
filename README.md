@@ -1,32 +1,34 @@
 # taskManager
-MediusWare Assessment Project Using Django
-# Your Project Name
+Assessment Project Using Django
+
 
 ## Setup
+1. Clone the repository (`https://github.com/tahzib-e-alindo/taskManager.git` ) or Download
+2. open cmd in taskManager Folder
+3. Go to Project directory using `cd taskmanager`
+4. Install dependencies using `pip install -r requirements.txt`
+5. Create a `.env` file and set your environment variables
 
-1. Clone the repository
-2. Install dependencies using `pip install -r requirements.txt`
-3. Create a `.env` file and set your environment variables -
-    cmd - 
-        cd your_project_directory
-        touch .env
+    1. `touch .env` 
 
-    Add Lines into .env - 
-
+    2. Add Lines into .env - 
+        
+        ```
         # Database settings
         DB_NAME=yourdatabase
         DB_USER=yourdatabaseuser
         DB_PASSWORD=yourpassword
         DB_HOST=localhost
         DB_PORT=5432
-
+        
         # Secret Key
         SECRET_KEY=yoursecretkey
-
+        ```
+6. Set up PostgreSQL database configuration
 
 ## Running the Project
-cmd - 
-    python manage.py runserver
+cmd - `python manage.py runserver`
+
 
 ## API Endpoints
 
@@ -45,8 +47,7 @@ cmd -
         "title": "title",
         "description": "Description",
         "due_date": "DueDate",
-        "priority": "Priority Low = 1,
-         Medium = 2, High=3",
+        "priority": "Priority Low=1, Medium=2, High=3",
         "status": "complete or incomplete",
         "created": "creationDate",
         "updated": "UpdateDate",
@@ -63,11 +64,16 @@ cmd -
   - Example: `PUT /api/tasks/1/`
   - Request Body:
     ```json
-    {
-      "title": "Updated Task Title",
-      "description": "Updated Task Description",
-      "priority": "Medium"
-    }
+        "id": 1,
+        "image": "imageFile",
+        "title": "title",
+        "description": "Description",
+        "due_date": "DueDate",
+        "priority": "Priority Low=1, Medium=2, High=3",
+        "status": "complete or incomplete",
+        "created": "creationDate",
+        "updated": "UpdateDate",
+        "user": 1
     ```
 - **DELETE:** Delete a specific task.
   - Example: `DELETE /api/tasks/1/`
