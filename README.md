@@ -4,12 +4,12 @@ Assessment Project Using Django
 
 ## Setup
 1. Clone the repository (`https://github.com/tahzib-e-alindo/taskManager.git` ) or Download
-2. open cmd in taskManager Folder
+2. open powershell in taskManager Folder
 3. Go to Project directory using `cd taskmanager`
 4. Install dependencies using `pip install -r requirements.txt`
 5. Create a `.env` file and set your environment variables
 
-    1. `touch .env` 
+    1. `New-Item -ItemType file -Name .env` 
 
     2. Add Lines into .env - 
         
@@ -27,7 +27,7 @@ Assessment Project Using Django
 6. Set up PostgreSQL database configuration
 
 ## Running the Project
-cmd - `python manage.py runserver`
+command - `python manage.py runserver`
 
 
 ## API Endpoints
