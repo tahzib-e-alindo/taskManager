@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import ModelForm
 from .models import Task
 
@@ -7,3 +8,4 @@ class TaskForm(ModelForm):
         model = Task
         fields = '__all__'
         exclude = ['user']
+    image = forms.ImageField(required=False)

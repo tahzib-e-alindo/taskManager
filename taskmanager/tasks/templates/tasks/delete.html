@@ -1,12 +1,18 @@
 {% extends 'main.html' %} {% block content %}
-<h2>Delete task</h2>
+<div class="delete-task-container">
+  <h2>Delete Task</h2>
 
-<div>
-  <form action="" method="POST">
-    {% csrf_token %}
-    <p>Are you sure you want to delete {{task}}</p>
-    <a href="{{request.META.HTTP_REFERER}}">back</a>
-    <input type="submit" value="Yes" />
-  </form>
+  <div class="confirmation-message">
+    <p>Are you sure you want to delete "{{ task }}"?</p>
+  </div>
+
+  <div class="delete-buttons-group">
+    <a href="{{ request.META.HTTP_REFERER }}"><button class="cancel-delete-button">Back</button></a>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <button type="submit" value="Yes" class="confirm-delete-button">Yes</button>
+    </form>
+  </div>
 </div>
+
 {% endblock content %}

@@ -1,24 +1,32 @@
 {% extends 'main.html' %} {% block content %}
-<style></style>
-<h2>Task Details</h2>
 
-<div>
-  <p><strong>Title:</strong> {{ task.title }}</p>
-  <p><strong>Description:</strong> {{ task.description }}</p>
-  <p><strong>Due Date:</strong> {{ task.due_date }}</p>
-  <p>
-    <strong>Priority:</strong>
-    {% if task.priority == '1' %} Low {% elif task.priority == '2' %} Medium {% elif task.priority
-    == '3' %} High {% endif %}
-  </p>
-  <p><strong>Status:</strong> {{ task.status }}</p>
+<div class="task-details-container">
+  <h2>Task Details</h2>
 
-  {% if task.image %}
-  <img src="{{ task.image.url }}" alt="Task Image" />
-  {% endif %}
+  <div class="task-details">
+    <p><strong>Title:</strong> {{ task.title }}</p>
+    <p><strong>Description:</strong> {{ task.description }}</p>
+    <p><strong>Due Date:</strong> {{ task.due_date }}</p>
+    <p><strong>Priority:</strong>
+      {% if task.priority == '1' %} Low 
+      {% elif task.priority == '2' %} Medium 
+      {% elif task.priority == '3' %} High 
+      {% endif %}
+    </p>
+    <p><strong>Status:</strong> {{ task.status }}</p>
 
-  <a href="{% url 'edittask' task.id %}">Edit</a>
-  <a href="{% url 'delete' task.id %}">Delete</a>
-  <a href="{{request.META.HTTP_REFERER}}">back</a>
+    {% if task.image %}
+      <img src="{{ task.image.url }}" alt="Task Image" class="task-image" />
+    {% endif %}
+
+    <div class="task-details-actions">
+      <a href="{% url 'edittask' task.id %}" class="button">Edit</a>
+      <a href="{% url 'delete' task.id %}" class="button">Delete</a>
+      <a href="{{ request.META.HTTP_REFERER }}" class="button">Back</a>
+    </div>
+  </div>
 </div>
+
 {% endblock content %}
+
+

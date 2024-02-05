@@ -45,6 +45,8 @@ def taskdetails(request, pk):
 
 
 def createtask(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
     if request.method == 'POST':
         form = TaskForm(request.POST, request.FILES)
         if form.is_valid():

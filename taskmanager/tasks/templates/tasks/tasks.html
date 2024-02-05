@@ -2,52 +2,72 @@
 <h2>All Tasks</h2>
 <h2>User: {{request.user}}</h2>
 <hr />
-<form method="get">
-    <label>Search by Title:</label>
-    <input type="text" name="search" value="{{ request.GET.search }}">
-    <button type="submit">Search</button>
+<div class="tasks-container">
+    <div>
+        <div class="searchform">
+            <form method="get">
+                <label>Search by Title:</label>
+                <input type="text" name="search" value="{{ request.GET.search }}">
+                <button class="button" type="submit">Search</button>
 
-    <br>
+                <br>
 
-    <label>Filter by Due Date:</label>
-    <input type="text" name="due_date" value="{{ request.GET.due_date }}">
+                <label>Filter by Due Date:</label>
+                <input type="text" name="due_date" value="{{ request.GET.due_date }}">
 
-    <label>Filter by Priority:</label>
-    <select name="priority">
-        <option value="" {% if not request.GET.priority %}selected{% endif %}>All</option>
-        <option value="1" {% if request.GET.priority == 'low' %}selected{% endif %}>Low</option>
-        <option value="2" {% if request.GET.priority == 'medium' %}selected{% endif %}>Medium</option>
-        <option value="3" {% if request.GET.priority == 'high' %}selected{% endif %}>High</option>
-    </select>
+                <label>Filter by Priority:</label>
+                <select name="priority">
+                    <option value="" {% if not request.GET.priority %}selected{% endif %}>All</option>
+                    <option value="1" {% if request.GET.priority == 'low' %}selected{% endif %}>Low</option>
+                    <option value="2" {% if request.GET.priority == 'medium' %}selected{% endif %}>Medium</option>
+                    <option value="3" {% if request.GET.priority == 'high' %}selected{% endif %}>High</option>
+                </select>
 
-    <label>Filter by Status:</label>
-    <select name="status">
-        <option value="" {% if not request.GET.status %}selected{% endif %}>All</option>
-        <option value="incomplete" {% if request.GET.status == 'incomplete' %}selected{% endif %}>Incomplete</option>
-        <option value="complete" {% if request.GET.status == 'complete' %}selected{% endif %}>Complete</option>
-    </select>
+                <label>Filter by Status:</label>
+                <select name="status">
+                    <option value="" {% if not request.GET.status %}selected{% endif %}>All</option>
+                    <option value="incomplete" {% if request.GET.status == 'incomplete' %}selected{% endif %}>Incomplete</option>
+                    <option value="complete" {% if request.GET.status == 'complete' %}selected{% endif %}>Complete</option>
+                </select>
 
-    <button type="submit">Apply Filters</button>
-</form>
-
-{% if tasks %}
-    <ul>
-        {% for task in tasks %}
-            <li>{{ task.title }} -- 
-                {% if task.priority == '1' %} Low 
-                {% elif task.priority == '2' %} Medium 
-                {% elif task.priority == '3' %} High 
-                {% endif %} -- {{ task.status }}
+                <button class="button" type="submit">Apply Filters</button>
+            </form>
+        </div>    
+    </div>
+    <div>
+        {% if tasks %}
+        <ul class="tasks-list">
+          {% for task in tasks %}
+            <li class="tasks-item">
+              <div class="tasks-details">
+                <h3>{{ task.title }}</h3>
+                <p>
+                  Priority: <span style="font-weight: bold;">{% if task.priority == '1' %} Low 
+                             {% elif task.priority == '2' %} Medium 
+                             {% elif task.priority == '3' %} High 
+                             {% endif %}
+                            </span>
+                </p>
+                <p>Status: {{ task.status }}</p>
+              </div>
+              <div class="tasks-actions">
+                <a href="{% url 'edittask' task.id %}" onMouseOut="this.style.backgroundColor='#64d76d'" onMouseOver="this.style.backgroundColor='#0F0'" style="background-color: #64d76d;" class="button">Edit</a>
+                <a href="{% url 'delete' task.id %}" onMouseOut="this.style.backgroundColor='#FF5555'" onMouseOver="this.style.backgroundColor='#F00'" style="background-color: #FF5555;" class="button">Delete</a>
+                <a href="{% url 'taskdetails' task.id %}" onMouseOut="this.style.backgroundColor='#428ae8'" onMouseOver="this.style.backgroundColor='#00F'" style="background-color: #428ae8;" class="button">Details</a>
+              </div>
             </li>
-                <a href="{% url 'edittask' task.id %}">Edit</a>
-                <a href="{% url 'delete' task.id %}">Delete</a>
-                <a href="{% url 'taskdetails' task.id %}">Show Details</a>
-            
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No tasks found.</p>
-{% endif %}
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No tasks found.</p>
+        <a href="{% url 'createtask' %}" class="button">Create A New Task</a>
+      {% endif %}
+    </div>
+</div>
 
-<h3><a href="{% url 'logout' %}">logout</a></h3>
+
+<div class="button-group">
+  <a href="{% url 'logout' %}" class="button">Logout</a>
+</div>
+  
 {% endblock content %}
