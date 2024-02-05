@@ -1,7 +1,18 @@
-{% extends "main.html" %} {% block content %} {% if request.user.is_authenticated %}
-<h1>Welcome <span style="text-transform: uppercase">{{user}}</span></h1>
-<h2><a href="{% url 'tasks' %}">Show Tasks</a></h2>
-{% else %}
-<h1>Welcome To Task Manager App</h1>
-<h2><a href="{% url 'login' %}">Login</a> ---- <a href="{% url 'register' %}">Register</a></h2>
-{% endif %} {% endblock content %}
+{% extends "main.html" %} {% block content %}
+<div class="welcome-container">
+  {% if request.user.is_authenticated %}
+  <h1>Welcome, {{ user }}!</h1>
+  <div class="button-group">
+    <a href="{% url 'tasks' %}" class="button">Show Tasks</a>
+    <a href="{% url 'createtask' %}" class="button">Create A New Task</a>
+    <a href="{% url 'logout' %}" class="button">Logout</a>
+  </div>
+  {% else %}
+  <h1>Welcome To Task Manager App</h1>
+  <div class="button-group">
+    <a href="{% url 'login' %}" class="button">Login</a>
+    <a href="{% url 'register' %}" class="button">Register</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}

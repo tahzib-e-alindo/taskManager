@@ -17,8 +17,8 @@ class Task(models.Model):
 
     title = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(upload_to='task_images', default='Image')
-    due_date = models.DateTimeField()
+    image = models.ImageField(upload_to='task_images', null=True, blank=True)
+    due_date = models.DateField()
     priority = models.CharField(
         max_length=10, choices=choice_priority, default='1')
     status = models.CharField(
@@ -26,6 +26,9 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['-priority']
 
     def __str__(self):
         return str(self.title)

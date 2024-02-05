@@ -1,0 +1,24 @@
+{% extends 'main.html' %} {% block content %}
+<style></style>
+<h2>Task Details</h2>
+
+<div>
+  <p><strong>Title:</strong> {{ task.title }}</p>
+  <p><strong>Description:</strong> {{ task.description }}</p>
+  <p><strong>Due Date:</strong> {{ task.due_date }}</p>
+  <p>
+    <strong>Priority:</strong>
+    {% if task.priority == '1' %} Low {% elif task.priority == '2' %} Medium {% elif task.priority
+    == '3' %} High {% endif %}
+  </p>
+  <p><strong>Status:</strong> {{ task.status }}</p>
+
+  {% if task.image %}
+  <img src="{{ task.image.url }}" alt="Task Image" />
+  {% endif %}
+
+  <a href="{% url 'edittask' task.id %}">Edit</a>
+  <a href="{% url 'delete' task.id %}">Delete</a>
+  <a href="{{request.META.HTTP_REFERER}}">back</a>
+</div>
+{% endblock content %}

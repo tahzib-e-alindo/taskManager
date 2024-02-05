@@ -1,6 +1,5 @@
 {% extends 'main.html' %} {% block content %}
 <h2>Login</h2>
-
 <div>
   <form action="" method="POST">
     {% csrf_token %}
@@ -10,7 +9,6 @@
     <br />
     <label>Password:</label>
     <input type="password" name="password" placeholder="Enter Password" required />
-
     <br />
     <br />
     <input type="submit" value="Login" />

@@ -1,7 +1,53 @@
 {% extends "main.html" %} {% block content %}
-<h1>Tasks</h1>
-{% for task in tasks %}
-<h3>User: {{task.user}} -- title: <a href="">{{task.title}}</a></h3>
-{% endfor %}
+<h2>All Tasks</h2>
+<h2>User: {{request.user}}</h2>
+<hr />
+<form method="get">
+    <label>Search by Title:</label>
+    <input type="text" name="search" value="{{ request.GET.search }}">
+    <button type="submit">Search</button>
+
+    <br>
+
+    <label>Filter by Due Date:</label>
+    <input type="text" name="due_date" value="{{ request.GET.due_date }}">
+
+    <label>Filter by Priority:</label>
+    <select name="priority">
+        <option value="" {% if not request.GET.priority %}selected{% endif %}>All</option>
+        <option value="1" {% if request.GET.priority == 'low' %}selected{% endif %}>Low</option>
+        <option value="2" {% if request.GET.priority == 'medium' %}selected{% endif %}>Medium</option>
+        <option value="3" {% if request.GET.priority == 'high' %}selected{% endif %}>High</option>
+    </select>
+
+    <label>Filter by Status:</label>
+    <select name="status">
+        <option value="" {% if not request.GET.status %}selected{% endif %}>All</option>
+        <option value="incomplete" {% if request.GET.status == 'incomplete' %}selected{% endif %}>Incomplete</option>
+        <option value="complete" {% if request.GET.status == 'complete' %}selected{% endif %}>Complete</option>
+    </select>
+
+    <button type="submit">Apply Filters</button>
+</form>
+
+{% if tasks %}
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task.title }} -- 
+                {% if task.priority == '1' %} Low 
+                {% elif task.priority == '2' %} Medium 
+                {% elif task.priority == '3' %} High 
+                {% endif %} -- {{ task.status }}
+            </li>
+                <a href="{% url 'edittask' task.id %}">Edit</a>
+                <a href="{% url 'delete' task.id %}">Delete</a>
+                <a href="{% url 'taskdetails' task.id %}">Show Details</a>
+            
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No tasks found.</p>
+{% endif %}
+
 <h3><a href="{% url 'logout' %}">logout</a></h3>
 {% endblock content %}
